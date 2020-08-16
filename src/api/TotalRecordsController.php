@@ -117,10 +117,10 @@ class TotalRecordsController extends Controller
             } else {
                 if(isset($request->join)){
                     $joinInformation = json_decode($request->join, true);
-                    $query = $model::selectRaw('DATE_FORMAT('.$xAxisColumn.', "%b %Y") AS cat, DATE_FORMAT('.$xAxisColumn.', "%Y-%m") AS catorder, sum('.$calculation.') counted'.$seriesSql)
+                    $query = $model::selectRaw('to_char('.$xAxisColumn.', \'Mon YYYY\') AS cat, to_char('.$xAxisColumn.', \'YYYY-mm\') AS catorder, sum('.$calculation.') counted'.$seriesSql)
                         ->join($joinInformation['joinTable'], $joinInformation['joinColumnFirst'], $joinInformation['joinEqual'], $joinInformation['joinColumnSecond']);
                 } else {
-                    $query = $model::selectRaw('DATE_FORMAT('.$xAxisColumn.', "%b %Y") AS cat, DATE_FORMAT('.$xAxisColumn.', "%Y-%m") AS catorder, sum('.$calculation.') counted'.$seriesSql);
+                    $query = $model::selectRaw('to_char('.$xAxisColumn.', \'Mon YYYY\') AS cat, to_char('.$xAxisColumn.', \'YYYY-mm\') AS catorder, sum('.$calculation.') counted'.$seriesSql);
                 }
                 
                 if(is_numeric($advanceFilterSelected)){
